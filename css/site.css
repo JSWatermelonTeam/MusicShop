@@ -1,0 +1,37 @@
+input,
+select,
+textarea {
+    max-width: 300px;
+}
+
+.home-image-container{
+    text-align: center;
+}
+
+.home-image-container img{
+    max-height: 350px;
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+}
+.under-nav-addMargin{
+    margin-top: 70px;
+}
+
+.home-welcome-message{
+    text-align: center;
+}
+
+.home-welcome-message h1{
+    font-size: 25px;
+}
+
+.footer {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+    background-color: #efefef;
+    text-align: center;
+}

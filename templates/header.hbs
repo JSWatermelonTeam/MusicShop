@@ -1,0 +1,32 @@
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#/home">Music shop</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="#/home">Home</a></li>
+                <li><a href="#/viewAds">View Ads</a></li>
+                <li><a href="#/myAds">My Ads</a></li>
+                <li><a href="#/newAd">New Ad</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                {{#if isAdmin}}
+                    <li><a href="#/adminPanel">Admin Panel</a></li>
+                {{/if}}
+                {{#if isLoggedIn}}
+                    <li><a href="#/register" id="registerLink">Register</a></li>
+                    <li><a href="#/login" id="loginLink">Log in</a></li>
+                {{else}}
+                    <a href="#/login" class="btn btn-default">Login</a>
+                    <a href="#/register" class="btn btn-default">Register</a>
+                {{/if}}
+            </ul>
+        </div>
+    </div>
+</div>
