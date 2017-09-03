@@ -19,6 +19,7 @@ $(() => {
                 this.partial('./templates/home.hbs');
             })
         });
+        this.get('#/register', homeController.getRegisterPage)
     });
 
     app.run();
