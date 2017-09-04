@@ -22,6 +22,7 @@ $(() => {
         this.get('#/home', homeController.getHomePage);
         this.get('#/register', accountController.getRegisterPage);
         this.get('#/login', accountController.getLoginPage);
+        this.post('#/login', accountController.getLoggedIn);
     });
 
     app.run();

@@ -1,3 +1,4 @@
+
 let accountController = (() => {
     function getRegisterPage(ctx) {
         ctx.loadPartials({
@@ -20,9 +21,23 @@ let accountController = (() => {
         })
     }
 
+    function getLoggedIn(ctx) {
+        let username=ctx.params.username;
+        let password=ctx.params.password;
+        authenticator.login(username,password)
+            .then(function (userInfo) {
+                authenticator.saveSession(userInfo);
+                homeController.getHomePage(ctx);
+
+            }).catch(authenticator.handleError);
+    }
+
     return {
         getRegisterPage,
-        getLoginPage
+        getLoginPage,
+        getLoggedIn
+
+
     }
 })();
 
