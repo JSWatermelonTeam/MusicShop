@@ -9,6 +9,7 @@ let homeController = (() => {
     }
 
     return {
+        
     getHome
     }
 })();
