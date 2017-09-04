@@ -19,9 +19,9 @@ $(() => {
                 this.partial('./templates/home.hbs');
             })
         });
-        this.get('#/home', homeController.getHome);
+        this.get('#/home', homeController.getHomePage);
         this.get('#/register', accountController.getRegisterPage);
-        this.get('#/login', accountController.getLogin);
+        this.get('#/login', accountController.getLoginPage);
     });
 
     app.run();

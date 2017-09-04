@@ -1,5 +1,5 @@
 let homeController = (() => {
-    function getHome(ctx) {
+    function getHomePage(ctx) {
         ctx.loadPartials({
             header: './templates/header.hbs',
             footer: './templates/footer.hbs'
@@ -9,8 +9,8 @@ let homeController = (() => {
     }
 
     return {
-        
-    getHome
+
+    getHomePage
     }
 })();
 

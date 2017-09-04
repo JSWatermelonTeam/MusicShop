@@ -10,7 +10,7 @@ let accountController = (() => {
         })
     }
 
-    function getLogin(ctx) {
+    function getLoginPage(ctx) {
         ctx.loadPartials({
             header: './templates/header.hbs',
             footer: './templates/footer.hbs'
@@ -22,7 +22,7 @@ let accountController = (() => {
 
     return {
         getRegisterPage,
-        getLogin
+        getLoginPage
     }
 })();
 
