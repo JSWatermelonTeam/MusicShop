@@ -32,11 +32,29 @@ let accountController = (() => {
             }).catch(authenticator.handleError);
     }
 
+    function getRegistered(ctx) {
+        let name = ctx.params.Name;
+        let username = ctx.params.Username;
+        let email = ctx.params.Email;
+        let phoneNumber = ctx.params.PhoneNumber;
+        let password = ctx.params.Password;
+        let repeatedPass = ctx.params.ConfirmPassword;
+
+            authenticator.register(name, username, email, phoneNumber, password)
+                .then(function (userInfo) {
+                    authenticator.saveSession(userInfo);
+                    homeController.getHomePage(ctx);
+                    auth.showInfo('Successfully registered.');
+                    homeController.getHomePage(ctx);
+
+                }).catch(authenticator.handleError);
+    }
+
     return {
         getRegisterPage,
         getLoginPage,
-        getLoggedIn
-
+        getLoggedIn,
+        getRegistered
 
     }
 })();

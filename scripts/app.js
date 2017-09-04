@@ -23,6 +23,7 @@ $(() => {
         this.get('#/register', accountController.getRegisterPage);
         this.get('#/login', accountController.getLoginPage);
         this.post('#/login', accountController.getLoggedIn);
+        this.post('#/register', accountController.getRegistered)
     });
 
     app.run();
