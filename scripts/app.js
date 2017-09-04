@@ -13,13 +13,15 @@ $(() => {
                 header: './templates/header.hbs',
                 footer: './templates/footer.hbs'
             }).then(function()  {
-                console.log('yes')
+                console.log('yes');
                 ctx.isAdmin = true; //FOR TESTNG
                 ctx.isLoggedIn = false;
                 this.partial('./templates/home.hbs');
             })
         });
-        this.get('#/register', homeController.getRegisterPage)
+        this.get('#/home', homeController.getHome);
+        this.get('#/register', accountController.getRegisterPage);
+        this.get('#/login', accountController.getLogin);
     });
 
     app.run();

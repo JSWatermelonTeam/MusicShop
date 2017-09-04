@@ -1,15 +1,16 @@
 let homeController = (() => {
-    function getRegisterPage(ctx) {
+    function getHome(ctx) {
         ctx.loadPartials({
             header: './templates/header.hbs',
             footer: './templates/footer.hbs'
         }).then(function()  {
-            ctx.isAdmin = true; //FOR TESTNG
-            ctx.isLoggedIn = false;
-            this.partial('./templates/register.hbs');
+            this.partial('./templates/home.hbs');
         })
     }
+
     return {
-        getRegisterPage
+    getHome
     }
 })();
+
+
