@@ -14,7 +14,8 @@ $(() => {
         this.get('#/login', accountController.getLoginPage);
         this.post('#/login', accountController.getLoggedIn);
         this.get('#/logout', accountController.logout);
-        this.post('#/register', accountController.getRegistered)
+        this.post('#/register', accountController.getRegistered);
+        this.get('#/newAd', createController.getNewAdPage);
     });
 
     app.run();
