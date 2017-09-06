@@ -41,15 +41,19 @@ let accountController = (() => {
         let password = ctx.params.Password;
         let repeatedPass = ctx.params.ConfirmPassword;
 
-            authenticator.register(name, username, email, phoneNumber, password)
-                .then(function (userInfo) {
-                    authenticator.saveSession(userInfo);
-                    homeController.getHomePage(ctx);
-                    authenticator.showInfo('Successfully registered.');
-                    ctx.redirect("#/home");
+        if (password !== repeatedPass) {
+            authenticator.showError("Passwords don't match!");
+            return;
+        }
 
-                }).catch(authenticator.handleError);
-    }
+        authenticator.register(name, username, email, phoneNumber, password)
+            .then(function (userInfo) {
+                authenticator.saveSession(userInfo);
+                authenticator.showInfo('Successfully registered.');
+                ctx.redirect("#/home");
+
+            }).catch(authenticator.handleError);
+}
     
     function logout(ctx) {
         authenticator.logout()
