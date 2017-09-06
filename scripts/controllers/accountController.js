@@ -27,7 +27,8 @@ let accountController = (() => {
         authenticator.login(username,password)
             .then(function (userInfo) {
                 authenticator.saveSession(userInfo);
-                homeController.getHomePage(ctx);
+                authenticator.showInfo('Successfully logged in.');
+                ctx.redirect("#/home");
 
             }).catch(authenticator.handleError);
     }
@@ -44,18 +45,27 @@ let accountController = (() => {
                 .then(function (userInfo) {
                     authenticator.saveSession(userInfo);
                     homeController.getHomePage(ctx);
-                    auth.showInfo('Successfully registered.');
-                    homeController.getHomePage(ctx);
+                    authenticator.showInfo('Successfully registered.');
+                    ctx.redirect("#/home");
 
                 }).catch(authenticator.handleError);
+    }
+    
+    function logout(ctx) {
+        authenticator.logout()
+            .then(function () {
+                authenticator.clearSession();
+                ctx.redirect("#/home");
+                authenticator.showInfo('Successfully logged out.');
+            }).catch(authenticator.handleError);
     }
 
     return {
         getRegisterPage,
         getLoginPage,
         getLoggedIn,
-        getRegistered
-
+        getRegistered,
+        logout
     }
 })();
 

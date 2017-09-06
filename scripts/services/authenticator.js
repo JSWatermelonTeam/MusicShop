@@ -3,6 +3,10 @@ let authenticator = (() => {
         return sessionStorage.getItem('authtoken') !== null;
     }
 
+    function isAdmin() {
+        return sessionStorage.getItem("admin");
+    }
+
     // user/login
     function login(username, password) {
         let userData = {
@@ -43,6 +47,10 @@ let authenticator = (() => {
         sessionStorage.setItem('username', username);
     }
 
+    function clearSession() {
+        sessionStorage.clear();
+    }
+
     function handleError(reason) {
         showError(reason.responseJSON.description);
     }
@@ -63,10 +71,12 @@ let authenticator = (() => {
 
     return {
         isAuth,
+        isAdmin,
         login,
         register,
         logout,
         saveSession,
+        clearSession,
         handleError,
         showInfo,
         showError
