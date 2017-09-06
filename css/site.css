@@ -35,3 +35,23 @@ textarea {
     background-color: #efefef;
     text-align: center;
 }
+.notification {
+    font-size: 1.5em;
+    float: right;
+    color: #ffffff;
+    padding:  0.5em 2em 0.5em 2em;
+    margin: 1em;
+    display: none;
+    position: fixed;
+    top: 10%;
+    right: 0;
+    text-align: center;
+    border-radius: 3px;
+}
+#infoBox {
+    background: #393;
+}
+
+#errorBox {
+    background: #F50;
+}
