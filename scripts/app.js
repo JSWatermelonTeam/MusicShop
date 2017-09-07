@@ -28,6 +28,8 @@ $(() => {
         this.post("#/editAd/:id", advertsController.editAdvert);
 
         this.get("#/deleteAd/:id", advertsController.deleteAdvert);
+
+        this.get("#/details/:id", advertsController.loadAdDetails)
     });
 
     app.run();

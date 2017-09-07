@@ -108,6 +108,31 @@ let advertsController = (() => {
             }
         }
     }
+    function loadAdDetails(ctx) {
+        let advertId = ctx.params.id.substring(1);
+
+
+
+        requester.get("appdata", "ads/" + advertId, "kinvey")
+            .then(loadSuccess)
+            .catch(authenticator.handleError);
+
+        function loadSuccess(advert) {
+            advert.date = new Date(Number(advert.datePublished)).toDateString();
+            ctx.advert = advert;
+
+            ctx.isLoggedIn = authenticator.isAuth();
+            ctx.isAdmin = authenticator.isAdmin();
+            ctx.username = sessionStorage.getItem("username");
+
+            ctx.loadPartials({
+                header: './templates/common/header.hbs',
+                footer: './templates/common/footer.hbs'
+            }).then(function () {
+                this.partial("./templates/viewAdDetails.hbs")
+            })
+        }
+    }
 
     return {
         getNewAdPage,
@@ -115,6 +140,7 @@ let advertsController = (() => {
         loadAdverts,
         loadAdvertEditView,
         deleteAdvert,
-        editAdvert
+        editAdvert,
+        loadAdDetails
     }
 })();

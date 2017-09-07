@@ -57,10 +57,16 @@ textarea {
     background: #F50;
 }
 
+.titleForm{
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 10px;
+    padding: 10px;
+}
 /*view ads css*/
 .ad-box {
-    width: 350px;
-    height: 350px;
+    width: 300px;
+    height: 300px;
     border: 1px solid black;
     text-align: center;
 
@@ -77,7 +83,7 @@ textarea {
     height:auto;
     width: auto;
     max-width: 250px;
-    max-height: 250px;
+    max-height: 200px;
 }
 
 .ad-control {
@@ -108,4 +114,18 @@ textarea {
 
 #ads {
     overflow: auto;
+}
+
+.detailed-view{
+    height: auto;
+    width: auto;
+    text-align: center;
+}
+
+.detailed-view img {
+    height: auto;
+    width: auto;
+    max-width: 300px;
+    max-height: 300px;
+    border: 1px solid black;
 }
