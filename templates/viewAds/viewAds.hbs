@@ -1,0 +1,10 @@
+{{> header}}
+<section id="viewListAds" class="viewAds">
+    <h1>Advertisements</h1>
+    {{#each adverts}}
+        {{> adBox}}
+    {{else}}
+        <p>No ads in database</p>
+    {{/each}}
+</section>
+{{> footer}}

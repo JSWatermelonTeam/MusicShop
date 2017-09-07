@@ -4,16 +4,15 @@ let homeController = (() => {
         ctx.isAdmin = authenticator.isAdmin();
         ctx.username = sessionStorage.getItem("username");
         ctx.loadPartials({
-            header: './templates/header.hbs',
-            footer: './templates/footer.hbs'
+            header: './templates/common/header.hbs',
+            footer: './templates/common/footer.hbs'
         }).then(function()  {
             this.partial('./templates/home.hbs');
         })
     }
 
     return {
-
-    getHomePage
+        getHomePage
     }
 })();
 

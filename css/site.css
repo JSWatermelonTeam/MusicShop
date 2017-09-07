@@ -27,6 +27,7 @@ textarea {
 }
 
 .footer {
+    display: none;
     position: absolute;
     right: 0;
     bottom: 0;
@@ -54,4 +55,57 @@ textarea {
 
 #errorBox {
     background: #F50;
+}
+
+/*view ads css*/
+.ad-box {
+    width: 350px;
+    height: 350px;
+    border: 1px solid black;
+    text-align: center;
+
+    margin: 20px;
+    /*display: inline-block;*/
+    float: left;
+}
+
+.ad-box div {
+    display: inline-block;
+}
+
+.ad-box img {
+    height:auto;
+    width: auto;
+    max-width: 250px;
+    max-height: 250px;
+}
+
+.ad-control {
+    float: right;
+    border: 1px solid white;
+    background: inherit;
+    width: 1.5em;
+    height: 1.5em;
+    color: white;
+}
+
+.ad-control:hover {
+    color: cadetblue;
+    cursor: pointer;
+
+}
+
+.delete:hover {
+    color: red;
+}
+
+.box-title {
+    width: 100%;
+    background: #333333;
+    color: white;
+    font-size: 1.5em;
+}
+
+#ads {
+    overflow: auto;
 }

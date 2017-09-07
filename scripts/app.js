@@ -10,12 +10,24 @@ $(() => {
         // Home & Default routes
         this.get('index.html', homeController.getHomePage);
         this.get('#/home', homeController.getHomePage);
+
         this.get('#/register', accountController.getRegisterPage);
+        this.post('#/register', accountController.getRegistered);
+
         this.get('#/login', accountController.getLoginPage);
         this.post('#/login', accountController.getLoggedIn);
+
         this.get('#/logout', accountController.logout);
-        this.post('#/register', accountController.getRegistered);
-        this.get('#/newAd', createController.getNewAdPage);
+
+        this.get('#/newAd', advertsController.getNewAdPage);
+        this.post("#/newAd", advertsController.createAdvert);
+
+        this.get("#/viewAds", advertsController.loadAdverts);
+
+        this.get("#/editAd/:id", advertsController.loadAdvertEditView);
+        this.post("#/editAd/:id", advertsController.editAdvert);
+
+        this.get("#/deleteAd/:id", advertsController.deleteAdvert);
     });
 
     app.run();

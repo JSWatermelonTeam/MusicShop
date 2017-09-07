@@ -1,0 +1,14 @@
+<div class="ad-box" id="{{_id}}">
+    <div class="box-title">
+        {{title}}
+        {{#if isPublishedByCurrentUser}}
+            <a href="#/deleteAd/:{{_id}}" class="ad-control delete">&#10006;</a>
+            <a href="#/editAd/:{{_id}}"  class="ad-control edit">&#9998;</a>
+        {{/if}}
+    </div>
+    <div><img src="{{imageUrl}}"></div>
+    <div>Price: {{price}} euro | By {{publisher}}</div>
+    <div>
+        <button class="read-more">Read more</button>
+    </div>
+</div>
