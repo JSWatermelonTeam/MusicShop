@@ -65,8 +65,9 @@ textarea {
 }
 /*view ads css*/
 .ad-box {
+    padding: 0;
     width: 300px;
-    height: 300px;
+    height: 325px;
     border: 1px solid black;
     text-align: center;
 
@@ -80,7 +81,8 @@ textarea {
 }
 
 .ad-box img {
-    height:auto;
+    margin-top: 5px;
+    height:196px;
     width: auto;
     max-width: 250px;
     max-height: 200px;
@@ -128,4 +130,38 @@ textarea {
     max-width: 300px;
     max-height: 300px;
     border: 1px solid black;
+}
+
+ .sale-details {
+     text-transform: uppercase;
+     text-align: center;
+ }
+
+.sales-container .sale-name{
+    text-align: right;
+}
+
+.detailed-sale-picture {
+    text-align: center;
+}
+
+.sales-row {
+    margin-bottom: 15px;
+}
+
+@media (max-width: 1200px) {
+    .sale-name {
+        display: inline-block;
+    }
+
+    .sales-container {
+        text-align: center;
+    }
+}
+
+@media (max-width: 476px) {
+    .detailed-btn {
+        display: block;
+        margin: 5px 0;
+    }
 }
