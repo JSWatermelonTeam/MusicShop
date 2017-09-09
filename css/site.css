@@ -27,13 +27,15 @@ textarea {
 }
 
 .footer {
-    position: absolute;
+    position: fixed;
     right: 0;
     bottom: 0;
+    padding-bottom: 12px;
+    padding-top: 12px;
     left: 0;
-    padding: 1rem;
-    background-color: #efefef;
+    background-color: #c0c0c0;
     text-align: center;
+    width: 100%;
 }
 .notification {
     font-size: 1.5em;
