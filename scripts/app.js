@@ -29,7 +29,8 @@ $(() => {
 
         this.get("#/deleteAd/:id", advertsController.deleteAdvert);
 
-        this.get("#/details/:id", advertsController.loadAdDetails)
+        this.get("#/details/:id", advertsController.loadAdDetails);
+        this.get("#/userProfile/:id", accountController.publisherProfile);
     });
 
     app.run();

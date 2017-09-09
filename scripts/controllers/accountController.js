@@ -4,7 +4,7 @@ let accountController = (() => {
         ctx.loadPartials({
             header: './templates/common/header.hbs',
             footer: './templates/common/footer.hbs'
-        }).then(function()  {
+        }).then(function () {
             this.partial('./templates/register.hbs');
         })
     }
@@ -13,15 +13,15 @@ let accountController = (() => {
         ctx.loadPartials({
             header: './templates/common/header.hbs',
             footer: './templates/common/footer.hbs'
-        }).then(function()  {
+        }).then(function () {
             this.partial('./templates/login.hbs');
         })
     }
 
     function getLoggedIn(ctx) {
-        let username=ctx.params.username;
-        let password=ctx.params.password;
-        authenticator.login(username,password)
+        let username = ctx.params.username;
+        let password = ctx.params.password;
+        authenticator.login(username, password)
             .then(function (userInfo) {
                 authenticator.saveSession(userInfo);
                 authenticator.showInfo('Successfully logged in.');
@@ -49,8 +49,8 @@ let accountController = (() => {
                 authenticator.showInfo('Successfully registered.');
                 ctx.redirect("#/home");
             }).catch(authenticator.handleError);
-        }
-    
+    }
+
     function logout(ctx) {
         authenticator.logout()
             .then(function () {
@@ -60,12 +60,35 @@ let accountController = (() => {
             }).catch(authenticator.handleError);
     }
 
+    function publisherProfile(ctx) {
+        let userId = ctx.params.id.substring(1);
+        requester.get('user', userId, 'kinvey')
+            .then(loadSuccess)
+            .catch(authenticator.handleError);
+
+        function loadSuccess(user) {
+            ctx.isLoggedIn = authenticator.isAuth();
+            ctx.isAdmin = authenticator.isAdmin();
+            ctx.username = sessionStorage.getItem("username");
+
+            ctx.user = user;
+
+            ctx.loadPartials({
+                header: './templates/common/header.hbs',
+                footer: './templates/common/footer.hbs'
+            }).then(function () {
+                this.partial("./templates/userProfile.hbs")
+            })
+        }
+    }
+
     return {
         getRegisterPage,
         getLoginPage,
         getLoggedIn,
         getRegistered,
-        logout
+        logout,
+        publisherProfile
     }
 })();
 

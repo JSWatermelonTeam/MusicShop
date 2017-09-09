@@ -112,7 +112,6 @@ let advertsController = (() => {
         let advertId = ctx.params.id.substring(1);
 
 
-
         requester.get("appdata", "ads/" + advertId, "kinvey")
             .then(loadSuccess)
             .catch(authenticator.handleError);
@@ -120,6 +119,7 @@ let advertsController = (() => {
         function loadSuccess(advert) {
             advert.date = new Date(Number(advert.datePublished)).toDateString();
             ctx.advert = advert;
+
 
             ctx.isLoggedIn = authenticator.isAuth();
             ctx.isAdmin = authenticator.isAdmin();

@@ -27,7 +27,6 @@ textarea {
 }
 
 .footer {
-    display: none;
     position: absolute;
     right: 0;
     bottom: 0;
@@ -132,31 +131,38 @@ textarea {
     border: 1px solid black;
 }
 
- .sale-details {
+ .ad-details {
      text-transform: uppercase;
      text-align: center;
  }
 
-.sales-container .sale-name{
+.ads-container .ad-name{
     text-align: right;
 }
 
-.detailed-sale-picture {
+.detailed-ad-picture {
     text-align: center;
 }
 
-.sales-row {
+
+.ads-row {
     margin-bottom: 15px;
 }
 
 @media (max-width: 1200px) {
-    .sale-name {
+    .ad-name {
         display: inline-block;
     }
 
-    .sales-container {
+    .ads-container {
         text-align: center;
     }
+}
+.user-profile{
+    height: auto;
+    width: auto;
+
+
 }
 
 @media (max-width: 476px) {
