@@ -45,6 +45,8 @@ let authenticator = (() => {
         sessionStorage.setItem('authtoken', userAuth);
         let username = userInfo.username;
         sessionStorage.setItem('username', username);
+        let userId = userInfo._id;
+        sessionStorage.setItem('userId', userId);
     }
 
     function clearSession() {

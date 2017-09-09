@@ -1,9 +1,7 @@
 {{> header}}
 <div>
-
     <h3 class="user-profile">{{user.name}} Profile</h3>
     <br>
-
     <div class="user-profile">
         <div class="form-group">
             <label class="col-md-2 control-label">Username:</label><strong>{{user.username}}</strong>
@@ -18,9 +16,8 @@
             <label class="col-md-2 control-label">Email:</label><strong>{{user.email}}</strong>
         </div>
         <div>
-            <a class="btn btn-default" href="#/MessageSellerLinkGoesHere">Contact seller</a>
+            <a class="btn btn-default" href="#/message/:{{user._id}}">Contact seller</a>
             <a class="btn btn-default" href="#/viewAds">View Ads</a>
         </div>
     </div>
-
 {{> footer}}

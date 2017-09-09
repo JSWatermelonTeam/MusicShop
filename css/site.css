@@ -160,11 +160,10 @@ textarea {
         text-align: center;
     }
 }
+
 .user-profile{
     height: auto;
     width: auto;
-
-
 }
 
 @media (max-width: 476px) {
@@ -172,4 +171,26 @@ textarea {
         display: block;
         margin: 5px 0;
     }
+}
+
+.messagesWrapper, .compose-message-wrapper {
+    text-align: center;
+}
+
+.messages-nav-container {
+    border-right: 1px solid black;
+    width: 300px;
+}
+
+.messageType {
+    list-style: none;
+}
+
+.msg-btn {
+    display: block;
+    margin-top: 10px;
+}
+
+.input-center {
+    margin: 0 auto;
 }

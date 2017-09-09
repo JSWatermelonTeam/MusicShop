@@ -31,6 +31,15 @@ $(() => {
 
         this.get("#/details/:id", advertsController.loadAdDetails);
         this.get("#/userProfile/:id", accountController.publisherProfile);
+
+        this.get("#/messages", messagesController.getMessagesPage);
+        this.get("#/messages/sent", messagesController.getSentMessages);
+        this.get("#/messages/recieved", messagesController.getRecievedMessages);
+
+        this.get("#/messages/details/:id", messagesController.loadDetailedMessagePage);
+
+        this.get("#/message/:id", messagesController.getComposeMessagePage);
+        this.post("#/message/:id", messagesController.sendMessage);
     });
 
     app.run();
