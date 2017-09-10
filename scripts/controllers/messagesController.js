@@ -34,6 +34,8 @@ let messagesController =  (() => {
             description: ctx.params.description,
             senderId: sessionStorage.getItem("userId"),
             recieverId: recieverId,
+            senderName: sessionStorage.getItem("name"),
+            senderUsername: sessionStorage.getItem("username"),
             datePosted: Date.now()
         };
 
@@ -42,9 +44,15 @@ let messagesController =  (() => {
         ctx.isAdmin = authenticator.isAdmin();
         ctx.username = sessionStorage.getItem("username");
 
-        requester.post("appdata", "messages", "kinvey", message)
-            .then(createSuccess)
-            .catch(authenticator.handleError);
+        requester.get("user", recieverId, "kinvey")
+            .then(function (userInfo) {
+                message.recieverName = userInfo.name;
+                message.recieverUsername = userInfo.username;
+
+                requester.post("appdata", "messages", "kinvey", message)
+                    .then(createSuccess)
+                    .catch(authenticator.handleError);
+            }).catch(authenticator.handleError);
 
         function createSuccess() {
             ctx.redirect("#/messages");
@@ -80,23 +88,8 @@ let messagesController =  (() => {
         function loadSuccess(data) {
             ctx.messageHasPartial = true;
             data.forEach(msg => {
-                let nameTypeNeeded = '';
-                if (typeId === "senderId"){
-                    nameTypeNeeded = "recieverId";
-                } else {
-                    nameTypeNeeded = "senderId";
-                }
-
-                requester.get('user', msg[nameTypeNeeded], "kinvey").then(function (userInfo) {
-                        msg.name = userInfo.name;
-                    }
-                )
+                msg.combinedName = msg[type + 'Username'] + `(${msg[type + 'Name']})`;
             });
-
-            // ADDED NAME TO ALL OF THE MESSAGE OBJECT BUT THEY DONT SHOW UP IN THE TEMPLATE
-            //NOT WORKING PROBABLY BECAUSE OF ASYNCHRONOUS THINGS, WILL FIX IT BY JUST ADDING THE NAMES AS COLUMNS IN KINVEY
-            //shows in console.log tho
-            console.log(data);
 
             ctx.messages = data;
 
@@ -126,7 +119,6 @@ let messagesController =  (() => {
             ctx.date = new Date(Number(msgData.datePosted)).toDateString();
             ctx.topic = msgData.topic;
             ctx.description = msgData.description;
-            //WILL WORK AFTER WE ADD COLUMNS IN KINVEY
             ctx.senderName = msgData.senderName;
             ctx.recieverName = msgData.recieverName;
             ctx.senderId = msgData.senderId;
