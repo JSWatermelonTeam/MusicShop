@@ -36,7 +36,9 @@ let messagesController =  (() => {
             recieverId: recieverId,
             senderName: sessionStorage.getItem("name"),
             senderUsername: sessionStorage.getItem("username"),
-            datePosted: Date.now()
+            datePosted: Date.now(),
+            hasRecieverDeleted: false,
+            hasSenderDeleted: false
         };
 
         ctx.recieverId = recieverId;
@@ -79,15 +81,24 @@ let messagesController =  (() => {
 
     function loadSentOrRecievedMessages(ctx, type) {
         let typeId = type + "Id";
-
-        let endPoint = `messages?query={"${typeId}":"${sessionStorage.getItem("userId")}"}`;
+        let isDeleteType = 'has' + type.charAt(0).toUpperCase() + type.slice(1) + 'Deleted';
+        let endPoint = `messages?query={"${typeId}":"${sessionStorage.getItem("userId")}", "${isDeleteType}":"false"}&sort=datePosted`;
         requester.get("appdata", endPoint, "kinvey")
             .then(loadSuccess)
             .catch(authenticator.handleError);
 
         function loadSuccess(data) {
             ctx.messageHasPartial = true;
+            if(type === 'sender'){
+                type = 'reciever';
+            } else {
+                type = 'sender'
+            }
+
             data.forEach(msg => {
+                if(type === 'sender'){
+                    msg.showingRecieved = true;
+                }
                 msg.combinedName = msg[type + 'Username'] + `(${msg[type + 'Name']})`;
             });
 
@@ -115,7 +126,6 @@ let messagesController =  (() => {
             .then(loadSuccess).catch(authenticator.handleError);
 
         function loadSuccess(msgData) {
-            console.log(msgData)
             ctx.date = new Date(Number(msgData.datePosted)).toDateString();
             ctx.topic = msgData.topic;
             ctx.description = msgData.description;
@@ -141,6 +151,54 @@ let messagesController =  (() => {
         }
     }
 
+    function deleteSent(ctx) {
+        let msgId = ctx.params.id.substring(1);
 
-    return { getMessagesPage, getComposeMessagePage, sendMessage, getSentMessages, getRecievedMessages, loadDetailedMessagePage }
+        ctx.recieverId = msgId;
+        ctx.isLoggedIn = authenticator.isAuth();
+        ctx.isAdmin = authenticator.isAdmin();
+        ctx.username = sessionStorage.getItem("username");
+
+        requester.get('appdata', 'messages/' + msgId, 'kinvey')
+            .then(function (msgData) {
+                msgData.hasSenderDeleted = true;
+                requester.update('appdata', 'messages/' + msgId, 'kinvey', msgData)
+                    .then(function () {
+                        authenticator.showInfo("Message successfully removed!");
+                        ctx.redirect('#/messages/sent');
+                    })
+            })
+            .catch(authenticator.handleError);
+    }
+
+    function deleteRecieved(ctx) {
+        let msgId = ctx.params.id.substring(1);
+
+        ctx.recieverId = msgId;
+        ctx.isLoggedIn = authenticator.isAuth();
+        ctx.isAdmin = authenticator.isAdmin();
+        ctx.username = sessionStorage.getItem("username");
+
+        requester.get('appdata', 'messages/' + msgId, 'kinvey')
+            .then(function (msgData) {
+                msgData.hasRecieverDeleted = true;
+                requester.update('appdata', 'messages/' + msgId, 'kinvey', msgData)
+                    .then(function () {
+                        authenticator.showInfo("Message successfully removed!");
+                        ctx.redirect('#/messages/recieved');
+                    })
+            })
+            .catch(authenticator.handleError);
+    }
+
+
+    return {
+        getMessagesPage,
+        getComposeMessagePage,
+        sendMessage, getSentMessages,
+        getRecievedMessages,
+        loadDetailedMessagePage,
+        deleteRecieved,
+        deleteSent
+    }
 })();

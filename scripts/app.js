@@ -3,10 +3,6 @@ $(() => {
     const app = Sammy('#mainContainer', function () {
         this.use('Handlebars', 'hbs');
 
-
-        //TODO: CREATE DIFFERENT CONTROLLERS FOR DIFFERENT TYPES OF VIEWS!!!!
-        //Example: not this.get('index.html', function(){...}); but: this.get('index.html', homeController.getWelcomePage);
-
         // Home & Default routes
         this.get('index.html', homeController.getHomePage);
         this.get('#/home', homeController.getHomePage);
@@ -40,6 +36,9 @@ $(() => {
 
         this.get("#/message/:id", messagesController.getComposeMessagePage);
         this.post("#/message/:id", messagesController.sendMessage);
+
+        this.get("#/messages/deleteRecieved/:id", messagesController.deleteRecieved)
+        this.get("#/messages/deleteSent/:id", messagesController.deleteSent)
     });
 
     app.run();
