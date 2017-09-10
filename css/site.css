@@ -211,3 +211,19 @@ textarea {
 .navbar-nav>li>a {
     font-size: 16px;
 }
+
+.filter-type {
+    display: inline-block;
+}
+
+.filter-wrapper {
+    padding: 20px;
+}
+
+.filter-submit-btn {
+    display: block;
+}
+
+.filter-title {
+    font-size: 18px;
+}

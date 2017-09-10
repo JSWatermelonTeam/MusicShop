@@ -3,7 +3,6 @@ $(() => {
     const app = Sammy('#mainContainer', function () {
         this.use('Handlebars', 'hbs');
 
-        // Home & Default routes
         this.get('index.html', homeController.getHomePage);
         this.get('#/home', homeController.getHomePage);
 
@@ -19,6 +18,7 @@ $(() => {
         this.post("#/newAd", advertsController.createAdvert);
 
         this.get("#/viewAds", advertsController.loadAdverts);
+        this.post("#/viewAds/filtered", advertsController.loadFilteredAdverts);
 
         this.get("#/editAd/:id", advertsController.loadAdvertEditView);
         this.post("#/editAd/:id", advertsController.editAdvert);

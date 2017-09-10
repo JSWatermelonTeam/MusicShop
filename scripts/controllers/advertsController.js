@@ -46,23 +46,51 @@ let advertsController = (() => {
             ctx.loadPartials({
                 header: './templates/common/header.hbs',
                 footer: './templates/common/footer.hbs',
-                adBox: "./templates/viewAds/adBox.hbs"
+                adBox: "./templates/viewAds/adBox.hbs",
+                filterAds: './templates/filterAds.hbs'
             }).then(function () {
-                this.partial("./templates/viewAds/viewAds.hbs").then(function () {
-                    $("#searchByCategory").click(() => loadAdvertsByCategory(ctx));
-                });
+                this.partial("./templates/viewAds/viewAds.hbs")
+                    //.then(function () { $("#searchByCategory").click(() => loadAdvertsByCategory(ctx));});
             });
         }
     }
 
-    function loadAdvertsByCategory(ctx) {
-        let category = $("#categoryBrowser").val();
-        if (category === "All advertisements") {
-            loadAdverts(ctx);
-            return;
+    function loadFilteredAdverts(ctx) {
+        let categoryType = ctx.params['category-type'];
+        let startPrice = ctx.params['filter-start-price'];
+        let endPrice = ctx.params['filter-end-price'];
+        let filterName = ctx.params['filter-name'];
+
+        if(endPrice < startPrice){
+            let buffer = endPrice;
+            endPrice = startPrice;
+            startPrice = buffer;
         }
 
-        requester.get("appdata", `ads?query={"category":"${category}"}`, "kinvey")
+        let queries = [];
+
+        if (startPrice !== '' && endPrice !== ''){
+            //PRICES NOT WORKING FOR SOME REASON
+            let greaterPriceQuery = `"price":{"$gte" : ${startPrice}}`;
+            //queries.push(greaterPriceQuery);
+            let lesserPriceQuery = `"price":{"$lte": ${endPrice}}`;
+            //queries.push(lesserPriceQuery);
+        }
+
+        let categoryTypeQuery = `"category": "${categoryType}"`;
+        if(categoryType !== "All advertisements"){
+            queries.push(categoryTypeQuery);
+        }
+
+        let nameQuery = `"title":{"$regex":"^${filterName}" }`;
+        queries.push(nameQuery);
+
+        let joinedQueries = queries.join(', ');
+        let endPoint = `ads?query={${joinedQueries}}`;
+
+        console.log(endPoint)
+
+        requester.get("appdata", endPoint, 'kinvey')
             .then(loadSuccess)
             .catch(authenticator.handleError);
 
@@ -75,11 +103,14 @@ let advertsController = (() => {
             ctx.loadPartials({
                 header: './templates/common/header.hbs',
                 footer: './templates/common/footer.hbs',
-                adBox: "./templates/viewAds/adBox.hbs"
+                adBox: "./templates/viewAds/adBox.hbs",
+                filterAds: './templates/filterAds.hbs'
             }).then(function () {
                 this.partial("./templates/viewAds/viewAds.hbs").then(function () {
-                    $("#categoryBrowser").val(category);
-                    $("#searchByCategory").click(() => loadAdvertsByCategory(ctx));
+                    $("#categoryBrowser").val(categoryType);
+                    $("#filter-end-price").val(endPrice);
+                    $("#filter-start-price").val(startPrice);
+                    $("#filter-name").val(filterName);
                 });
             });
         }
@@ -176,6 +207,7 @@ let advertsController = (() => {
         loadAdvertEditView,
         deleteAdvert,
         editAdvert,
-        loadAdDetails
+        loadAdDetails,
+        loadFilteredAdverts
     }
 })();
