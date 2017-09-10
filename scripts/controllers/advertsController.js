@@ -14,6 +14,7 @@ let advertsController = (() => {
     function createAdvert(ctx) {
         let newAd = {
             title: ctx.params.title,
+            category: ctx.params.category,
             description: ctx.params.description,
             price: Number(ctx.params.price),
             imageUrl: ctx.params.image,
@@ -47,7 +48,39 @@ let advertsController = (() => {
                 footer: './templates/common/footer.hbs',
                 adBox: "./templates/viewAds/adBox.hbs"
             }).then(function () {
-                this.partial("./templates/viewAds/viewAds.hbs");
+                this.partial("./templates/viewAds/viewAds.hbs").then(function () {
+                    $("#searchByCategory").click(() => loadAdvertsByCategory(ctx));
+                });
+            });
+        }
+    }
+
+    function loadAdvertsByCategory(ctx) {
+        let category = $("#categoryBrowser").val();
+        if (category === "All advertisements") {
+            loadAdverts(ctx);
+            return;
+        }
+
+        requester.get("appdata", `ads?query={"category":"${category}"}`, "kinvey")
+            .then(loadSuccess)
+            .catch(authenticator.handleError);
+
+        function loadSuccess(adverts) {
+            adverts.forEach(ad => ad.isPublishedByCurrentUser = ad.publisher === sessionStorage.getItem("username"));
+            ctx.adverts = adverts;
+            ctx.isLoggedIn = authenticator.isAuth();
+            ctx.isAdmin = authenticator.isAdmin();
+            ctx.username = sessionStorage.getItem("username");
+            ctx.loadPartials({
+                header: './templates/common/header.hbs',
+                footer: './templates/common/footer.hbs',
+                adBox: "./templates/viewAds/adBox.hbs"
+            }).then(function () {
+                this.partial("./templates/viewAds/viewAds.hbs").then(function () {
+                    $("#categoryBrowser").val(category);
+                    $("#searchByCategory").click(() => loadAdvertsByCategory(ctx));
+                });
             });
         }
     }
@@ -81,7 +114,9 @@ let advertsController = (() => {
                 header: './templates/common/header.hbs',
                 footer: './templates/common/footer.hbs'
             }).then(function () {
-                this.partial("./templates/editAd.hbs");
+                this.partial("./templates/editAd.hbs").then(function () {
+                    $("#category").val(advert.category);
+                });
             });
         }
     }
@@ -94,6 +129,7 @@ let advertsController = (() => {
 
         function loadSuccess(advert) {
             advert.title = ctx.params.title;
+            advert.category = ctx.params.category;
             advert.description = ctx.params.description;
             advert.price = Number(ctx.params.price);
             advert.imageUrl = ctx.params.image;
@@ -119,7 +155,6 @@ let advertsController = (() => {
         function loadSuccess(advert) {
             advert.date = new Date(Number(advert.datePublished)).toDateString();
             ctx.advert = advert;
-
 
             ctx.isLoggedIn = authenticator.isAuth();
             ctx.isAdmin = authenticator.isAdmin();
