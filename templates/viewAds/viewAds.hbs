@@ -1,23 +1,25 @@
 {{> header}}
-    <h2 class="titleForm">Advertisements</h2>
-    <div>
-        <h2>Select Category</h2>
-        <select id="categoryBrowser">
-            <option>All advertisements</option>
-            <option>Musical Instruments</option>
-            <option>DJ Equipment</option>
-            <option>Studio Equipment</option>
-            <option>HI-FI</option>
-            <option>Lights</option>
-            <option>Accessories</option>
-        </select>
-        <button id="searchByCategory">Search</button>
-    </div>
-    <div class="row container">
-    {{#each adverts}}
-        {{> adBox}}
-    {{else}}
-        <p>No ads in database</p>
-    {{/each}}
+    <div class="viewAds-wrapper">
+        <h2 class="titleForm">Advertisements</h2>
+        <div>
+            <h2>Select Category</h2>
+            <select id="categoryBrowser">
+                <option>All advertisements</option>
+                <option>Musical Instruments</option>
+                <option>DJ Equipment</option>
+                <option>Studio Equipment</option>
+                <option>HI-FI</option>
+                <option>Lights</option>
+                <option>Accessories</option>
+            </select>
+            <button id="searchByCategory">Search</button>
+        </div>
+        <div class="row container">
+            {{#each adverts}}
+                {{> adBox}}
+            {{else}}
+                <p>No ads in database</p>
+            {{/each}}
+        </div>
     </div>
 {{> footer}}

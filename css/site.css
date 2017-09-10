@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 input,
 select,
 textarea {
@@ -193,4 +197,17 @@ textarea {
 
 .input-center {
     margin: 0 auto;
+}
+
+#mainContainer {
+    width: 100%;
+    margin-bottom: 4%;
+}
+
+.viewAds-wrapper {
+    margin: 0 10% 0 7%;
+}
+
+.navbar-nav>li>a {
+    font-size: 16px;
 }
