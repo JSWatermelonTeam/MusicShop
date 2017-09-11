@@ -1,23 +1,32 @@
 {{> header}}
 <div>
     <h3 class="user-profile">{{user.name}} Profile</h3>
-    <br>
-    <div class="user-profile">
-        <div class="form-group">
-            <label class="col-md-2 control-label">Username:</label><strong>{{user.username}}</strong>
+    <div class="ads-container">
+        <div class="row ads-row">
+            <div class="col-lg-4 ad-name"><strong>Username:</strong></div>
+            <div class="col-lg-6">{{user.username}}</div>
         </div>
-        <div class="form-group">
-            <label class="col-md-2 control-label">Name:</label><strong>{{user.name}}</strong>
+        <div class="row ads-row">
+            <div class="col-lg-4 ad-name"><strong>Name:</strong></div>
+            <div class="col-lg-6">{{user.name}}</div>
         </div>
-        <div class="form-group">
-            <label class="col-md-2 control-label">Phone number:</label><strong>{{user.phoneNumber}}</strong>
+        <div class="row ads-row">
+            <div class="col-lg-4 ad-name"><strong>Phone number:</strong></div>
+            <div class="col-lg-6">{{user.phoneNumber}}</div>
         </div>
-        <div class="form-group">
-            <label class="col-md-2 control-label">Email:</label><strong>{{user.email}}</strong>
+        <div class="row ads-row">
+            <div class="col-lg-4 ad-name"><strong>Email:</strong></div>
+            <div class="col-lg-6">{{user.email}}</div>
         </div>
-        <div>
-            <a class="btn btn-default" href="#/message/:{{user._id}}">Contact seller</a>
-            <a class="btn btn-default" href="#/viewAds">View Ads</a>
+        <div class="row ads-row">
+            <div class="col-lg-4 col-lg-offset-4">
+                {{#if isUserProfileOwner}}
+                    <a class="btn btn-default" href="#/editUserProfile/:{{user._id}}">Edit Profile</a>
+                {{else}}
+                    <a class="btn btn-default" href="#/message/:{{user._id}}">Contact seller</a>
+                    <a class="btn btn-default" href="#/viewAds">View Ads</a>
+                {{/if}}
+            </div>
         </div>
     </div>
 {{> footer}}

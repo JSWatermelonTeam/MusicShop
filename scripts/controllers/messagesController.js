@@ -3,6 +3,7 @@ let messagesController =  (() => {
         ctx.isLoggedIn = authenticator.isAuth();
         ctx.isAdmin = authenticator.isAdmin();
         ctx.username = sessionStorage.getItem("username");
+        ctx.userId = sessionStorage.getItem("userId");
         ctx.loadPartials({
             header: './templates/common/header.hbs',
             footer: './templates/common/footer.hbs'
@@ -18,6 +19,7 @@ let messagesController =  (() => {
         ctx.isLoggedIn = authenticator.isAuth();
         ctx.isAdmin = authenticator.isAdmin();
         ctx.username = sessionStorage.getItem("username");
+        ctx.userId = sessionStorage.getItem("userId");
         ctx.loadPartials({
             header: './templates/common/header.hbs',
             footer: './templates/common/footer.hbs'
@@ -45,6 +47,7 @@ let messagesController =  (() => {
         ctx.isLoggedIn = authenticator.isAuth();
         ctx.isAdmin = authenticator.isAdmin();
         ctx.username = sessionStorage.getItem("username");
+        ctx.userId = sessionStorage.getItem("userId");
 
         requester.get("user", recieverId, "kinvey")
             .then(function (userInfo) {
@@ -66,6 +69,7 @@ let messagesController =  (() => {
         ctx.isLoggedIn = authenticator.isAuth();
         ctx.isAdmin = authenticator.isAdmin();
         ctx.username = sessionStorage.getItem("username");
+        ctx.userId = sessionStorage.getItem("userId");
         ctx.showingRecieved = true;
 
         loadSentOrRecievedMessages(ctx, "reciever");
@@ -75,6 +79,7 @@ let messagesController =  (() => {
         ctx.isLoggedIn = authenticator.isAuth();
         ctx.isAdmin = authenticator.isAdmin();
         ctx.username = sessionStorage.getItem("username");
+        ctx.userId = sessionStorage.getItem("userId");
 
         loadSentOrRecievedMessages(ctx, "sender");
     }
@@ -119,6 +124,7 @@ let messagesController =  (() => {
         ctx.isLoggedIn = authenticator.isAuth();
         ctx.isAdmin = authenticator.isAdmin();
         ctx.username = sessionStorage.getItem("username");
+        ctx.userId = sessionStorage.getItem("userId");
 
         let msgId = ctx.params.id.substring(1);
 
@@ -158,6 +164,7 @@ let messagesController =  (() => {
         ctx.isLoggedIn = authenticator.isAuth();
         ctx.isAdmin = authenticator.isAdmin();
         ctx.username = sessionStorage.getItem("username");
+        ctx.userId = sessionStorage.getItem("userId");
 
         requester.get('appdata', 'messages/' + msgId, 'kinvey')
             .then(function (msgData) {
@@ -178,6 +185,7 @@ let messagesController =  (() => {
         ctx.isLoggedIn = authenticator.isAuth();
         ctx.isAdmin = authenticator.isAdmin();
         ctx.username = sessionStorage.getItem("username");
+        ctx.userId = sessionStorage.getItem("userId");
 
         requester.get('appdata', 'messages/' + msgId, 'kinvey')
             .then(function (msgData) {

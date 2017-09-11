@@ -168,6 +168,7 @@ textarea {
 .user-profile{
     height: auto;
     width: auto;
+    text-align: center;
 }
 
 @media (max-width: 476px) {

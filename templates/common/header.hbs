@@ -20,7 +20,7 @@
                     {{#if isAdmin}}
                         <li><a href="#/adminPanel">Admin Panel</a></li>
                     {{/if}}
-                    <li><a href="#">Welcome {{username}}</a></li>
+                    <li><a href="#/userProfile/:{{userId}}">{{username}} Profile</a></li>
                 {{else}}
                     <li><a href="#/register" id="registerLink">Register</a></li>
                     <li><a href="#/login" id="loginLink">Log in</a></li>

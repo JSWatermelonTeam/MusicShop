@@ -60,7 +60,7 @@ let accountController = (() => {
             }).catch(authenticator.handleError);
     }
 
-    function publisherProfile(ctx) {
+    function userProfile(ctx) {
         let userId = ctx.params.id.substring(1);
         requester.get('user', userId, 'kinvey')
             .then(loadSuccess)
@@ -70,8 +70,17 @@ let accountController = (() => {
             ctx.isLoggedIn = authenticator.isAuth();
             ctx.isAdmin = authenticator.isAdmin();
             ctx.username = sessionStorage.getItem("username");
+            ctx.userId = sessionStorage.getItem("userId");
 
             ctx.user = user;
+            ctx.isUserProfileOwner = true;
+
+            if (ctx.userId !== ctx.user._id) {
+                ctx.isUserProfileOwner = false;
+            }
+                console.log(ctx.isUserProfileOwner);
+            console.log(ctx.userId);
+
 
             ctx.loadPartials({
                 header: './templates/common/header.hbs',
@@ -81,6 +90,55 @@ let accountController = (() => {
             })
         }
     }
+    function loadEditUserProfileView(ctx) {
+        let userId = ctx.params.id.substring(1);
+        requester.get("user", userId, "kinvey")
+            .then(loadSuccess)
+            .catch(authenticator.handleError);
+        function loadSuccess(user) {
+            ctx.user = user;
+            ctx.isLoggedIn = authenticator.isAuth();
+            ctx.isAdmin = authenticator.isAdmin();
+            ctx.username = sessionStorage.getItem("username");
+            ctx.userId = sessionStorage.getItem("userId");
+
+            ctx.loadPartials({
+                header: './templates/common/header.hbs',
+                footer: './templates/common/footer.hbs'
+            }).then(function () {
+                this.partial("./templates/editUserProfile.hbs")
+            })
+        }
+    }
+    function editUserProfile(ctx) {
+        let userId = ctx.params.id.substring(1);
+        requester.get("user", userId, "kinvey")
+            .then(loadSuccess)
+            .catch(authenticator.handleError);
+        function loadSuccess(user) {
+
+
+            user.name = ctx.params.name;
+            user.email = ctx.params.email;
+            user.phoneNumber = ctx.params.phoneNumber;
+            user.username = user.username;
+
+
+            requester.update("user", userId, "kinvey", user)
+                .then(editSuccess)
+                .catch(authenticator.handleError);
+
+            function editSuccess(userInfo) {
+                console.log(userInfo);
+                sessionStorage.clear();
+                authenticator.saveSession(userInfo);
+                ctx.redirect("#/viewAds");
+                authenticator.showInfo(`${userInfo.username} profile successfully edited!`);
+                console.log(userInfo);
+            }
+
+        }
+    }
 
     return {
         getRegisterPage,
@@ -88,7 +146,9 @@ let accountController = (() => {
         getLoggedIn,
         getRegistered,
         logout,
-        publisherProfile
+        userProfile,
+        loadEditUserProfileView,
+        editUserProfile
     }
 })();
 

@@ -3,6 +3,7 @@ let advertsController = (() => {
         ctx.isLoggedIn = authenticator.isAuth();
         ctx.isAdmin = authenticator.isAdmin();
         ctx.username = sessionStorage.getItem("username");
+        ctx.userId = sessionStorage.getItem("userId");
         ctx.loadPartials({
             header: './templates/common/header.hbs',
             footer: './templates/common/footer.hbs'
@@ -43,6 +44,8 @@ let advertsController = (() => {
             ctx.isLoggedIn = authenticator.isAuth();
             ctx.isAdmin = authenticator.isAdmin();
             ctx.username = sessionStorage.getItem("username");
+            ctx.userId = sessionStorage.getItem("userId");
+
             ctx.loadPartials({
                 header: './templates/common/header.hbs',
                 footer: './templates/common/footer.hbs',
@@ -100,6 +103,7 @@ let advertsController = (() => {
             ctx.isLoggedIn = authenticator.isAuth();
             ctx.isAdmin = authenticator.isAdmin();
             ctx.username = sessionStorage.getItem("username");
+            ctx.userId = sessionStorage.getItem("userId");
             ctx.loadPartials({
                 header: './templates/common/header.hbs',
                 footer: './templates/common/footer.hbs',
@@ -140,6 +144,7 @@ let advertsController = (() => {
             ctx.isLoggedIn = authenticator.isAuth();
             ctx.isAdmin = authenticator.isAdmin();
             ctx.username = sessionStorage.getItem("username");
+            ctx.userId = sessionStorage.getItem("userId");
 
             ctx.loadPartials({
                 header: './templates/common/header.hbs',
@@ -190,6 +195,7 @@ let advertsController = (() => {
             ctx.isLoggedIn = authenticator.isAuth();
             ctx.isAdmin = authenticator.isAdmin();
             ctx.username = sessionStorage.getItem("username");
+            ctx.userId = sessionStorage.getItem("userId");
 
             ctx.loadPartials({
                 header: './templates/common/header.hbs',

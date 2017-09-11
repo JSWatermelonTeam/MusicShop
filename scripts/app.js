@@ -26,7 +26,7 @@ $(() => {
         this.get("#/deleteAd/:id", advertsController.deleteAdvert);
 
         this.get("#/details/:id", advertsController.loadAdDetails);
-        this.get("#/userProfile/:id", accountController.publisherProfile);
+        this.get("#/userProfile/:id", accountController.userProfile);
 
         this.get("#/messages", messagesController.getMessagesPage);
         this.get("#/messages/sent", messagesController.getSentMessages);
@@ -37,8 +37,11 @@ $(() => {
         this.get("#/message/:id", messagesController.getComposeMessagePage);
         this.post("#/message/:id", messagesController.sendMessage);
 
-        this.get("#/messages/deleteRecieved/:id", messagesController.deleteRecieved)
-        this.get("#/messages/deleteSent/:id", messagesController.deleteSent)
+        this.get("#/messages/deleteRecieved/:id", messagesController.deleteRecieved);
+        this.get("#/messages/deleteSent/:id", messagesController.deleteSent);
+
+        this.get("#/editUserProfile/:id", accountController.loadEditUserProfileView);
+        this.post("#/editUserProfile/:id", accountController.editUserProfile);
     });
 
     app.run();

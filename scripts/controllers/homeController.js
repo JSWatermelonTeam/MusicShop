@@ -3,6 +3,8 @@ let homeController = (() => {
         ctx.isLoggedIn = authenticator.isAuth();
         ctx.isAdmin = authenticator.isAdmin();
         ctx.username = sessionStorage.getItem("username");
+        ctx.userId = sessionStorage.getItem("userId");
+        console.log(ctx.userId);
         ctx.loadPartials({
             header: './templates/common/header.hbs',
             footer: './templates/common/footer.hbs'
