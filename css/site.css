@@ -41,6 +41,16 @@ textarea {
     text-align: center;
     width: 100%;
 }
+
+.button {
+    display: inline-block;
+    background: #4E9CAF;
+    padding: 5px;
+    text-align: center;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+}
 .notification {
     font-size: 1.5em;
     float: right;
