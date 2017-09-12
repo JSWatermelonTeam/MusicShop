@@ -30,7 +30,7 @@ $(() => {
         this.get("#/messages", messagesController.getMessagesPage);
 
         this.get("#/messages/sent", messagesController.getSentMessages);
-        this.get("#/messages/recived", messagesController.getRecievedMessages);
+        this.get("#/messages/received", messagesController.getRecievedMessages);
         this.get("#/messages/details/:id", messagesController.loadDetailedMessagePage);
 
         this.get("#/message/:id", messagesController.getComposeMessagePage);

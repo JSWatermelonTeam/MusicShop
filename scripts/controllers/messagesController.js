@@ -105,6 +105,7 @@ let messagesController =  (() => {
                     msg.showingRecieved = true;
                 }
                 msg.combinedName = msg[type + 'Username'] + `(${msg[type + 'Name']})`;
+                msg.datePosted = new Date(Number(msg.datePosted)).toDateString();
             });
 
             ctx.messages = data;
