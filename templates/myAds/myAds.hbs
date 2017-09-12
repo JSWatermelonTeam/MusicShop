@@ -11,11 +11,11 @@
         {{#each adverts}}
             <tr>
                 <td>{{title}}</td>
-                <td>{{price}}</td>
+                <td>{{price}} €</td>
                 <td>
-                    <a class="button" href="#/details/:{{_id}}">Details</a>
-                    <a class="button" href="#/editAd/:{{_id}}">Edit</a>
-                    <a class="button" href="#/deleteAd/:{{_id}}">Delete</a>
+                    <a class="button detailsBtn" href="#/details/:{{_id}}">Details</a>
+                    <a class="button editBtn" href="#/editAd/:{{_id}}">Edit</a>
+                    <a class="button delBtn" href="#/deleteAd/:{{_id}}">Delete</a>
                 </td>
             </tr>
         {{/each}}
