@@ -165,8 +165,8 @@ let advertsController = (() => {
             ctx.adverts = adverts;
             ctx.isLoggedIn = authenticator.isAuth();
             ctx.isAdmin = authenticator.isAdmin();
-            // ctx.username = sessionStorage.getItem("username");
-            // ctx.userId = sessionStorage.getItem("userId");
+            ctx.username = sessionStorage.getItem("username");
+            ctx.userId = sessionStorage.getItem("userId");
 
             ctx.loadPartials({
                 header: './templates/common/header.hbs',
