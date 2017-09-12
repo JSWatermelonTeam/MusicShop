@@ -72,6 +72,12 @@ textarea {
 #searchForm {
     display: none;
 }
+
+#searchForm div {
+    display: block;
+}
+
+
 .ad-box {
     padding: 0;
     width: 300px;
