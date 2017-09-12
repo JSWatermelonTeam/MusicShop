@@ -49,6 +49,8 @@ let authenticator = (() => {
         sessionStorage.setItem('name', name);
         let userId = userInfo._id;
         sessionStorage.setItem('userId', userId);
+        let isAdmin = userInfo.isAdmin;
+        sessionStorage.setItem('isAdmin', isAdmin);
     }
 
     function clearSession() {
@@ -56,6 +58,7 @@ let authenticator = (() => {
     }
 
     function handleError(reason) {
+        console.log(reason.responseJSON)
         showError(reason.responseJSON.description);
     }
 

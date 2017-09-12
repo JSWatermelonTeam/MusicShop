@@ -4,7 +4,7 @@ let homeController = (() => {
         ctx.isAdmin = authenticator.isAdmin();
         ctx.username = sessionStorage.getItem("username");
         ctx.userId = sessionStorage.getItem("userId");
-        console.log(ctx.userId);
+        ctx.isAdmin = sessionStorage.getItem("isAdmin");
         ctx.loadPartials({
             header: './templates/common/header.hbs',
             footer: './templates/common/footer.hbs'

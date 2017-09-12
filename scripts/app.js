@@ -1,5 +1,4 @@
 $(() => {
-
     const app = Sammy('#mainContainer', function () {
         this.use('Handlebars', 'hbs');
 
@@ -42,6 +41,13 @@ $(() => {
         this.get("#/userProfile/:id", accountController.userProfile);
         this.get("#/editUserProfile/:id", accountController.loadEditUserProfileView);
         this.post("#/editUserProfile/:id", accountController.editUserProfile);
+
+        this.get("#/admin", adminController.getAdminControllerSecretPage);
+        this.get("#/admin/home", adminController.getAdminHomePage);
+        this.get('#/admin/users', adminController.getManageUsers);
+        this.get('#/admin/users/:id', adminController.getSpecificUser);
+        this.get('#/admin/users/lock/:id', adminController.lockUser);
+        this.get('#/admin/users/unlock/:id', adminController.unlockUser);
     });
 
     app.run();

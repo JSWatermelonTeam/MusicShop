@@ -237,3 +237,32 @@ textarea {
 .filter-title {
     font-size: 18px;
 }
+
+.secret-wrapper {
+    margin-top: 100px;
+    text-align: center;
+}
+
+#master-secret-label {
+    font-size: 25px;
+}
+
+.send-secret-btn {
+    margin-top: 15px;
+}
+
+.admin-users-wrapper table {
+    margin: 0 auto;
+}
+
+.admin-users-wrapper th, .admin-users-wrapper td {
+    padding: 10px;
+}
+
+.admin-users-wrapper th {
+    font-size: 18px;
+}
+
+.admin-users-wrapper thead{
+    border-bottom: 3px solid;
+}
