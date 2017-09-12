@@ -62,42 +62,72 @@ let advertsController = (() => {
         let categoryType = ctx.params['category-type'];
         let startPrice = ctx.params['filter-start-price'];
         let endPrice = ctx.params['filter-end-price'];
-        let filterName = ctx.params['filter-name'];
+        let filterName = ctx.params['filter-name'].trim().toLowerCase();
 
-        if(endPrice < startPrice){
-            let buffer = endPrice;
-            endPrice = startPrice;
-            startPrice = buffer;
-        }
+        // if(endPrice < startPrice){
+        //     let buffer = endPrice;
+        //     endPrice = startPrice;
+        //     startPrice = buffer;
+        // }
+        //
+        // let queries = [];
+        //
+        // if (startPrice !== '' && endPrice !== ''){
+        //     //PRICES NOT WORKING FOR SOME REASON
+        //     let greaterPriceQuery = `"price":{"$gte" : ${startPrice}}`;
+        //     //queries.push(greaterPriceQuery);
+        //     let lesserPriceQuery = `"price":{"$lte": ${endPrice}}`;
+        //     //queries.push(lesserPriceQuery);
+        // }
+        //
+        // let categoryTypeQuery = `"category": "${categoryType}"`;
+        // if(categoryType !== "All advertisements"){
+        //     queries.push(categoryTypeQuery);
+        // }
+        //
+        // let nameQuery = `"title":{"$regex":"^${filterName}" }`;
+        // queries.push(nameQuery);
+        //
+        // let joinedQueries = queries.join(', ');
+        // let endPoint = `ads?query={${joinedQueries}}`;
+        //
+        // console.log(endPoint)
 
-        let queries = [];
-
-        if (startPrice !== '' && endPrice !== ''){
-            //PRICES NOT WORKING FOR SOME REASON
-            let greaterPriceQuery = `"price":{"$gte" : ${startPrice}}`;
-            //queries.push(greaterPriceQuery);
-            let lesserPriceQuery = `"price":{"$lte": ${endPrice}}`;
-            //queries.push(lesserPriceQuery);
-        }
-
-        let categoryTypeQuery = `"category": "${categoryType}"`;
-        if(categoryType !== "All advertisements"){
-            queries.push(categoryTypeQuery);
-        }
-
-        let nameQuery = `"title":{"$regex":"^${filterName}" }`;
-        queries.push(nameQuery);
-
-        let joinedQueries = queries.join(', ');
-        let endPoint = `ads?query={${joinedQueries}}`;
-
-        console.log(endPoint)
-
-        requester.get("appdata", endPoint, 'kinvey')
+        requester.get("appdata", "ads", 'kinvey')
             .then(loadSuccess)
             .catch(authenticator.handleError);
 
         function loadSuccess(adverts) {
+            adverts = adverts.filter(ad => {
+                if (categoryType !== "All advertisements" && ad.category !== categoryType) {
+                    return false;
+                }
+
+                let startPriceSelected = startPrice.trim() !== '';
+                let endPriceSelected = endPrice.trim() !== '';
+
+                if (startPriceSelected && endPriceSelected) {
+                    if (ad.price < Number(startPrice) || ad.price > Number(endPrice)) {
+                        return false;
+                    }
+                }
+
+                if (startPriceSelected && ad.price < Number(startPrice)) {
+                    return false;
+                }
+
+                if (endPriceSelected && ad.price > Number(endPrice)) {
+                    return false;
+                }
+                console.log(ad.title);
+
+                if (filterName !== '' && ad.title.toLowerCase().indexOf(filterName) === -1) {
+                    return false;
+                }
+
+                return true;
+            });
+            
             adverts.forEach(ad => ad.isPublishedByCurrentUser = ad.publisher === sessionStorage.getItem("username"));
             ctx.adverts = adverts;
             ctx.isLoggedIn = authenticator.isAuth();
@@ -182,7 +212,6 @@ let advertsController = (() => {
     }
     function loadAdDetails(ctx) {
         let advertId = ctx.params.id.substring(1);
-
 
         requester.get("appdata", "ads/" + advertId, "kinvey")
             .then(loadSuccess)

@@ -199,7 +199,6 @@ let messagesController =  (() => {
             .catch(authenticator.handleError);
     }
 
-
     return {
         getMessagesPage,
         getComposeMessagePage,

@@ -26,12 +26,10 @@ $(() => {
         this.get("#/deleteAd/:id", advertsController.deleteAdvert);
 
         this.get("#/details/:id", advertsController.loadAdDetails);
-        this.get("#/userProfile/:id", accountController.userProfile);
-
         this.get("#/messages", messagesController.getMessagesPage);
-        this.get("#/messages/sent", messagesController.getSentMessages);
-        this.get("#/messages/recieved", messagesController.getRecievedMessages);
 
+        this.get("#/messages/sent", messagesController.getSentMessages);
+        this.get("#/messages/recived", messagesController.getRecievedMessages);
         this.get("#/messages/details/:id", messagesController.loadDetailedMessagePage);
 
         this.get("#/message/:id", messagesController.getComposeMessagePage);
@@ -40,6 +38,7 @@ $(() => {
         this.get("#/messages/deleteRecieved/:id", messagesController.deleteRecieved);
         this.get("#/messages/deleteSent/:id", messagesController.deleteSent);
 
+        this.get("#/userProfile/:id", accountController.userProfile);
         this.get("#/editUserProfile/:id", accountController.loadEditUserProfileView);
         this.post("#/editUserProfile/:id", accountController.editUserProfile);
     });

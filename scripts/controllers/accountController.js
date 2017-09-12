@@ -26,7 +26,6 @@ let accountController = (() => {
                 authenticator.saveSession(userInfo);
                 authenticator.showInfo('Successfully logged in.');
                 ctx.redirect("#/home");
-
             }).catch(authenticator.handleError);
     }
 
