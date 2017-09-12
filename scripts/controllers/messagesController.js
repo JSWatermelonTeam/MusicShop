@@ -193,7 +193,7 @@ let messagesController =  (() => {
                 requester.update('appdata', 'messages/' + msgId, 'kinvey', msgData)
                     .then(function () {
                         authenticator.showInfo("Message successfully removed!");
-                        ctx.redirect('#/messages/recieved');
+                        ctx.redirect('#/messages/recived');
                     })
             })
             .catch(authenticator.handleError);
