@@ -77,9 +77,7 @@ let accountController = (() => {
             if (ctx.userId !== ctx.user._id) {
                 ctx.isUserProfileOwner = false;
             }
-                console.log(ctx.isUserProfileOwner);
-            console.log(ctx.userId);
-
+            console.log(ctx.isAdmin);
 
             ctx.loadPartials({
                 header: './templates/common/header.hbs',
@@ -101,12 +99,16 @@ let accountController = (() => {
             ctx.username = sessionStorage.getItem("username");
             ctx.userId = sessionStorage.getItem("userId");
 
-            ctx.loadPartials({
-                header: './templates/common/header.hbs',
-                footer: './templates/common/footer.hbs'
-            }).then(function () {
-                this.partial("./templates/editUserProfile.hbs")
-            })
+            if (ctx.userId === ctx.params.id.substring(1)) {
+                ctx.loadPartials({
+                    header: './templates/common/header.hbs',
+                    footer: './templates/common/footer.hbs'
+                }).then(function () {
+                    this.partial("./templates/editUserProfile.hbs")
+                })
+            }else {
+                ctx.redirect("#")
+            }
         }
     }
     function editUserProfile(ctx) {
