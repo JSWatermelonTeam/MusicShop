@@ -74,7 +74,7 @@ let adminController = (() => {
 
         let data = {
             userId: userId,
-            setLockdownStateTo: true
+            setLockdownStateTo: false
         };
 
         adminRequester.post('rpc', 'lockdown-user', data)

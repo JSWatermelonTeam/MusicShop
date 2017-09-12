@@ -21,7 +21,9 @@ let adminRequester = (() => {
     // Function to return POST promise
     function post (module, endpoint, data) {
         let req = makeRequest('POST', module, endpoint);
-        req.data = data;
+        req.dataType = 'json';
+        req.contentType = 'application/json';
+        req.data = JSON.stringify(data);
         return $.ajax(req);
     }
 
