@@ -1,5 +1,11 @@
 let messagesController =  (() => {
     function getMessagesPage(ctx) {
+        if(!authenticator.isAuth()){
+            ctx.redirect('#/login');
+
+            return;
+        }
+
         ctx.isLoggedIn = authenticator.isAuth();
         ctx.isAdmin = authenticator.isAdmin();
         ctx.username = sessionStorage.getItem("username");
@@ -13,6 +19,12 @@ let messagesController =  (() => {
     }
 
     function getComposeMessagePage(ctx) {
+        if(!authenticator.isAuth()){
+            ctx.redirect('#/login');
+
+            return;
+        }
+
         let recieverId = ctx.params.id.substring(1);
 
         ctx.recieverId = recieverId;
@@ -29,6 +41,12 @@ let messagesController =  (() => {
     }
 
     function sendMessage(ctx) {
+        if(!authenticator.isAuth()){
+            ctx.redirect('#/login');
+
+            return;
+        }
+
         let recieverId = ctx.params.id.substring(1);
 
         let message = {
@@ -66,6 +84,12 @@ let messagesController =  (() => {
     }
 
     function getRecievedMessages(ctx) {
+        if(!authenticator.isAuth()){
+            ctx.redirect('#/login');
+
+            return;
+        }
+
         ctx.isLoggedIn = authenticator.isAuth();
         ctx.isAdmin = authenticator.isAdmin();
         ctx.username = sessionStorage.getItem("username");
@@ -76,6 +100,12 @@ let messagesController =  (() => {
     }
 
     function getSentMessages(ctx) {
+        if(!authenticator.isAuth()){
+            ctx.redirect('#/login');
+
+            return;
+        }
+
         ctx.isLoggedIn = authenticator.isAuth();
         ctx.isAdmin = authenticator.isAdmin();
         ctx.username = sessionStorage.getItem("username");
@@ -122,6 +152,12 @@ let messagesController =  (() => {
     }
 
     function loadDetailedMessagePage(ctx) {
+        if(!authenticator.isAuth()){
+            ctx.redirect('#/login');
+
+            return;
+        }
+
         ctx.isLoggedIn = authenticator.isAuth();
         ctx.isAdmin = authenticator.isAdmin();
         ctx.username = sessionStorage.getItem("username");
@@ -159,6 +195,12 @@ let messagesController =  (() => {
     }
 
     function deleteSent(ctx) {
+        if(!authenticator.isAuth()){
+            ctx.redirect('#/login');
+
+            return;
+        }
+
         let msgId = ctx.params.id.substring(1);
 
         ctx.recieverId = msgId;
@@ -180,6 +222,12 @@ let messagesController =  (() => {
     }
 
     function deleteRecieved(ctx) {
+        if(!authenticator.isAuth()){
+            ctx.redirect('#/login');
+
+            return;
+        }
+
         let msgId = ctx.params.id.substring(1);
 
         ctx.recieverId = msgId;

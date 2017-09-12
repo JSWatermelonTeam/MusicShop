@@ -1,5 +1,11 @@
 let advertsController = (() => {
     function getNewAdPage(ctx) {
+        if(!authenticator.isAuth()){
+            ctx.redirect('#/login');
+
+            return;
+        }
+
         ctx.isLoggedIn = authenticator.isAuth();
         ctx.isAdmin = authenticator.isAdmin();
         ctx.username = sessionStorage.getItem("username");
@@ -13,6 +19,12 @@ let advertsController = (() => {
     }
 
     function createAdvert(ctx) {
+        if(!authenticator.isAuth()){
+            ctx.redirect('#/login');
+
+            return;
+        }
+
         let newAd = {
             title: ctx.params.title,
             category: ctx.params.category,
@@ -34,6 +46,12 @@ let advertsController = (() => {
     }
 
     function loadAdverts(ctx) {
+        if(!authenticator.isAuth()){
+            ctx.redirect('#/login');
+
+            return;
+        }
+
         requester.get("appdata", "ads", "kinvey")
             .then(loadSuccess)
             .catch(authenticator.handleError);
@@ -62,6 +80,12 @@ let advertsController = (() => {
     }
 
     function loadFilteredAdverts(ctx) {
+        if(!authenticator.isAuth()){
+            ctx.redirect('#/login');
+
+            return;
+        }
+
         let categoryType = ctx.params['category-type'];
         let startPrice = ctx.params['filter-start-price'];
         let endPrice = ctx.params['filter-end-price'];
@@ -157,6 +181,12 @@ let advertsController = (() => {
     }
 
     function loadMyAdverts(ctx) {
+        if(!authenticator.isAuth()){
+            ctx.redirect('#/login');
+
+            return;
+        }
+
         requester.get("appdata", `ads?query={"publisher":"${sessionStorage.getItem("username")}"}`, "kinvey")
             .then(loadSuccess)
             .catch(authenticator.handleError);
@@ -178,6 +208,12 @@ let advertsController = (() => {
     }
 
     function deleteAdvert(ctx) {
+        if(!authenticator.isAuth()){
+            ctx.redirect('#/login');
+
+            return;
+        }
+
         let advertID = ctx.params.id.substring(1);
         requester.remove("appdata", "ads/" + advertID, "kinvey")
             .then(deleteSuccess)
@@ -190,6 +226,12 @@ let advertsController = (() => {
     }
 
     function loadAdvertEditView(ctx) {
+        if(!authenticator.isAuth()){
+            ctx.redirect('#/login');
+
+            return;
+        }
+
         let advertID = ctx.params.id.substring(1);
         requester.get("appdata", "ads/" + advertID, "kinvey")
             .then(loadSuccess)
@@ -215,6 +257,12 @@ let advertsController = (() => {
     }
 
     function editAdvert(ctx) {
+        if(!authenticator.isAuth()){
+            ctx.redirect('#/login');
+
+            return;
+        }
+
         let advertID = ctx.params.id.substring(1);
         requester.get("appdata", "ads/" + advertID, "kinvey")
             .then(loadSuccess)
@@ -237,7 +285,14 @@ let advertsController = (() => {
             }
         }
     }
+
     function loadAdDetails(ctx) {
+        if(!authenticator.isAuth()){
+            ctx.redirect('#/login');
+
+            return;
+        }
+
         let advertId = ctx.params.id.substring(1);
 
         requester.get("appdata", "ads/" + advertId, "kinvey")

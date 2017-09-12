@@ -48,6 +48,8 @@ $(() => {
         this.get('#/admin/users/:id', adminController.getSpecificUser);
         this.get('#/admin/users/lock/:id', adminController.lockUser);
         this.get('#/admin/users/unlock/:id', adminController.unlockUser);
+        this.get('#/admin/users/makeAdmin/:id', adminController.makeAdmin);
+        this.get('#/admin/users/removeAdmin/:id', adminController.removeAdmin);
     });
 
     app.run();

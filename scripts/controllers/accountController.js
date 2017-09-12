@@ -1,6 +1,12 @@
 let accountController = (() => {
 
     function getRegisterPage(ctx) {
+        if(authenticator.isAuth()){
+            ctx.redirect('#/home');
+
+            return;
+        }
+
         ctx.loadPartials({
             header: './templates/common/header.hbs',
             footer: './templates/common/footer.hbs'
@@ -10,6 +16,12 @@ let accountController = (() => {
     }
 
     function getLoginPage(ctx) {
+        if(authenticator.isAuth()){
+            ctx.redirect('#/home');
+
+            return;
+        }
+
         ctx.loadPartials({
             header: './templates/common/header.hbs',
             footer: './templates/common/footer.hbs'
@@ -37,8 +49,37 @@ let accountController = (() => {
         let password = ctx.params.Password;
         let repeatedPass = ctx.params.ConfirmPassword;
 
+        name = name.trim();
+        if (name.length <= 1) {
+            authenticator.showError("Name must be at least 2 symbols long!");
+
+            return;
+        }
+
+        username = username.trim();
+        if (username.length <= 1) {
+            authenticator.showError("Username must be at least 2 symbols long!");
+
+            return;
+        }
+
+        let emailRegex = /^.+@.+$/g;
+
+        if(!email.match(emailRegex)){
+            showError('Please enter a valid email address!');
+
+            return;
+        }
+
+        if(password.length < 6){
+            authenticator.showError('Password must be at least 6 symbols long!');
+
+            return;
+        }
+
         if (password !== repeatedPass) {
             authenticator.showError("Passwords don't match!");
+
             return;
         }
 
@@ -60,6 +101,12 @@ let accountController = (() => {
     }
 
     function userProfile(ctx) {
+        if(!authenticator.isAuth()){
+            ctx.redirect('#/login');
+
+            return;
+        }
+
         let userId = ctx.params.id.substring(1);
         requester.get('user', userId, 'kinvey')
             .then(loadSuccess)
@@ -88,6 +135,12 @@ let accountController = (() => {
         }
     }
     function loadEditUserProfileView(ctx) {
+        if(!authenticator.isAuth()){
+            ctx.redirect('#/login');
+
+            return;
+        }
+
         let userId = ctx.params.id.substring(1);
         requester.get("user", userId, "kinvey")
             .then(loadSuccess)

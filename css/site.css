@@ -281,3 +281,7 @@ td > a:hover {
 .admin-users-wrapper thead{
     border-bottom: 3px solid;
 }
+
+.give-admin {
+    margin-top: 10px;
+}

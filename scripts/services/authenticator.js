@@ -4,7 +4,7 @@ let authenticator = (() => {
     }
 
     function isAdmin() {
-        return sessionStorage.getItem("admin");
+        return sessionStorage.getItem("isAdmin") === true;
     }
 
     // user/login
@@ -58,7 +58,6 @@ let authenticator = (() => {
     }
 
     function handleError(reason) {
-        console.log(reason.responseJSON)
         showError(reason.responseJSON.description);
     }
 

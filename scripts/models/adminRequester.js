@@ -30,7 +30,9 @@ let adminRequester = (() => {
     // Function to return PUT promise
     function update (module, endpoint, data) {
         let req = makeRequest('PUT', module, endpoint);
-        req.data = data;
+        req.dataType = 'json';
+        req.contentType = 'application/json';
+        req.data = JSON.stringify(data);
         return $.ajax(req);
     }
 
