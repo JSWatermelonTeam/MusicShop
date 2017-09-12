@@ -1,0 +1,24 @@
+{{> header}}
+<div class="myAds-wrapper">
+    <h2 class="titleForm">My Advertisements</h2>
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>
+
+        {{#each adverts}}
+            <tr>
+                <td>{{title}}</td>
+                <td>{{price}}</td>
+                <td>
+                    <a href="#/details/:{{_id}}">Details</a>
+                    <a href="#/editAd/:{{_id}}">Edit</a>
+                    <a href="#/deleteAd/:{{_id}}">Delete</a>
+                </td>
+            </tr>
+        {{/each}}
+    </table>
+</div>
+{{> footer}}

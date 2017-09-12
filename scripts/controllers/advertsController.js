@@ -52,7 +52,10 @@ let advertsController = (() => {
                 adBox: "./templates/viewAds/adBox.hbs",
                 filterAds: './templates/filterAds.hbs'
             }).then(function () {
-                this.partial("./templates/viewAds/viewAds.hbs")
+                this.partial("./templates/viewAds/viewAds.hbs").then(function () {
+                    let advancedSearchBtn = $("#advancedSearchBtn");
+                    advancedSearchBtn.click(toggleSearchFormDisplay);
+                });
                     //.then(function () { $("#searchByCategory").click(() => loadAdvertsByCategory(ctx));});
             });
         }
@@ -119,7 +122,6 @@ let advertsController = (() => {
                 if (endPriceSelected && ad.price > Number(endPrice)) {
                     return false;
                 }
-                console.log(ad.title);
 
                 if (filterName !== '' && ad.title.toLowerCase().indexOf(filterName) === -1) {
                     return false;
@@ -127,7 +129,7 @@ let advertsController = (() => {
 
                 return true;
             });
-            
+
             adverts.forEach(ad => ad.isPublishedByCurrentUser = ad.publisher === sessionStorage.getItem("username"));
             ctx.adverts = adverts;
             ctx.isLoggedIn = authenticator.isAuth();
@@ -145,7 +147,32 @@ let advertsController = (() => {
                     $("#filter-end-price").val(endPrice);
                     $("#filter-start-price").val(startPrice);
                     $("#filter-name").val(filterName);
+                    let advancedSearchBtn = $("#advancedSearchBtn");
+                    advancedSearchBtn.text("Hide Advanced Search");
+                    $("#searchForm").show();
+                    advancedSearchBtn.click(toggleSearchFormDisplay);
                 });
+            });
+        }
+    }
+
+    function loadMyAdverts(ctx) {
+        requester.get("appdata", `ads?query={"publisher":"${sessionStorage.getItem("username")}"}`, "kinvey")
+            .then(loadSuccess)
+            .catch(authenticator.handleError);
+
+        function loadSuccess(adverts) {
+            ctx.adverts = adverts;
+            ctx.isLoggedIn = authenticator.isAuth();
+            ctx.isAdmin = authenticator.isAdmin();
+            // ctx.username = sessionStorage.getItem("username");
+            // ctx.userId = sessionStorage.getItem("userId");
+
+            ctx.loadPartials({
+                header: './templates/common/header.hbs',
+                footer: './templates/common/footer.hbs',
+            }).then(function () {
+                this.partial("./templates/myAds/myAds.hbs");
             });
         }
     }
@@ -235,14 +262,26 @@ let advertsController = (() => {
         }
     }
 
+    function toggleSearchFormDisplay(event) {
+        let advancedSearchBtn = $(event.target);
+        if (advancedSearchBtn.text().startsWith("Show")) {
+            advancedSearchBtn.text("Hide Advanced Search");
+            $("#searchForm").show();
+        } else {
+            advancedSearchBtn.text("Show Advanced Search");
+            $("#searchForm").hide();
+        }
+    }
+
     return {
         getNewAdPage,
         createAdvert,
         loadAdverts,
+        loadFilteredAdverts,
+        loadMyAdverts,
         loadAdvertEditView,
         deleteAdvert,
         editAdvert,
-        loadAdDetails,
-        loadFilteredAdverts
+        loadAdDetails
     }
 })();

@@ -19,6 +19,7 @@ $(() => {
 
         this.get("#/viewAds", advertsController.loadAdverts);
         this.post("#/viewAds/filtered", advertsController.loadFilteredAdverts);
+        this.get("#/myAds", advertsController.loadMyAdverts);
 
         this.get("#/editAd/:id", advertsController.loadAdvertEditView);
         this.post("#/editAd/:id", advertsController.editAdvert);
