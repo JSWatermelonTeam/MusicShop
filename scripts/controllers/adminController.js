@@ -56,7 +56,7 @@ let adminController = (() => {
             return;
         }
 
-        ctx.isInAdminArea = sessionStorage.getItem('isAdmin');
+        ctx.isInAdminArea = authenticator.isAdmin();
 
         adminRequester.get('user', '')
             .then(function (usersData) {
@@ -87,7 +87,7 @@ let adminController = (() => {
         }
 
         let userId = ctx.params.id.substring(1);
-        ctx.isInAdminArea = sessionStorage.getItem('isAdmin');
+        ctx.isInAdminArea = authenticator.isAdmin();
         adminRequester.get('user', userId)
             .then(function (userData) {
                 ctx.user = userData;
@@ -214,6 +214,90 @@ let adminController = (() => {
             .catch(authenticator.handleError);
     }
 
+    function getManageAds(ctx) {
+        if(!authenticator.isAdmin()){
+            if(!authenticator.isAuth()){
+                ctx.redirect('#/login');
+
+                return;
+            }
+
+            ctx.redirect('#/home');
+
+            return;
+        }
+
+        ctx.isInAdminArea = authenticator.isAdmin();
+
+        adminRequester.get('appdata', 'ads')
+            .then(function (adsData) {
+                    ctx.ads = adsData;
+                    ctx.loadPartials({
+                        header: './templates/common/header.hbs',
+                        footer: './templates/common/footer.hbs'
+                    }).then(function()  {
+                        this.partial('./templates/admin/ads.hbs');
+                    })
+                }
+            )
+            .catch(authenticator.handleError);
+    }
+
+    function getManageSpecificAd(ctx) {
+        if(!authenticator.isAdmin()){
+            if(!authenticator.isAuth()){
+                ctx.redirect('#/login');
+
+                return;
+            }
+
+            ctx.redirect('#/home');
+
+            return;
+        }
+
+        let adId = ctx.params.id.substring(1);
+        ctx.isInAdminArea = authenticator.isAdmin();
+        adminRequester.get('appdata', 'ads/' + adId)
+            .then(function (adData) {
+                adData.datePublished = new Date(Number(adData.datePublished)).toDateString();
+                ctx.ad = adData;
+                ctx.loadPartials({
+                    header: './templates/common/header.hbs',
+                    footer: './templates/common/footer.hbs'
+                }).then(function()  {
+                    this.partial('./templates/admin/specificAd.hbs');
+                })
+
+            })
+            .catch(authenticator.handleError);
+    }
+
+    function deleteAd(ctx) {
+        if(!authenticator.isAdmin()){
+            if(!authenticator.isAuth()){
+                ctx.redirect('#/login');
+
+                return;
+            }
+
+            ctx.redirect('#/home');
+
+            return;
+        }
+
+        let adId = ctx.params.id.substring(1);
+        ctx.isInAdminArea = authenticator.isAdmin();
+
+        adminRequester.remove('appdata', 'ads/' + adId)
+            .then(function (deleteDataCount) {
+                authenticator.showInfo('Ad successfully deleted!');
+                ctx.redirect('#/admin/ads')
+
+            })
+            .catch(authenticator.handleError);
+    }
+
     return {
         getAdminControllerSecretPage,
         getAdminHomePage,
@@ -222,6 +306,9 @@ let adminController = (() => {
         lockUser,
         unlockUser,
         makeAdmin,
-        removeAdmin
+        removeAdmin,
+        getManageAds,
+        getManageSpecificAd,
+        deleteAd
     }
 })();

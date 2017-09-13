@@ -44,12 +44,17 @@ $(() => {
 
         this.get("#/admin", adminController.getAdminControllerSecretPage);
         this.get("#/admin/home", adminController.getAdminHomePage);
+
         this.get('#/admin/users', adminController.getManageUsers);
         this.get('#/admin/users/:id', adminController.getSpecificUser);
         this.get('#/admin/users/lock/:id', adminController.lockUser);
         this.get('#/admin/users/unlock/:id', adminController.unlockUser);
         this.get('#/admin/users/makeAdmin/:id', adminController.makeAdmin);
         this.get('#/admin/users/removeAdmin/:id', adminController.removeAdmin);
+
+        this.get('#/admin/ads', adminController.getManageAds);
+        this.get('#/admin/ads/:id', adminController.getManageSpecificAd);
+        this.get('#/admin/ads/delete/:id', adminController.deleteAd);
     });
 
     app.run();

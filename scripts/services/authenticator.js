@@ -4,7 +4,7 @@ let authenticator = (() => {
     }
 
     function isAdmin() {
-        return sessionStorage.getItem("isAdmin") === true;
+        return sessionStorage.getItem("isAdmin") === true || sessionStorage.getItem("isAdmin") === 'true';
     }
 
     // user/login

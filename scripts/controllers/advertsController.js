@@ -25,8 +25,21 @@ let advertsController = (() => {
             return;
         }
 
+        let title = ctx.params.title.trim();
+        if(title.length < 6){
+            authenticator.showError('Title must be at least 6 symbols long!');
+
+            return;
+        }
+
+        if(title.length > 30){
+            aauthenticator.showError('Title cannot be longer than 6 symbols!');
+
+            return;
+        }
+
         let newAd = {
-            title: ctx.params.title,
+            title: title,
             category: ctx.params.category,
             description: ctx.params.description,
             price: Number(ctx.params.price),

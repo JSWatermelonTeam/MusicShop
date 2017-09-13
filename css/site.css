@@ -96,7 +96,7 @@ td > a:hover {
 .ad-box {
     padding: 0;
     width: 300px;
-    height: 325px;
+    height: 348px;
     border: 1px solid black;
     text-align: center;
 
@@ -137,7 +137,8 @@ td > a:hover {
 }
 
 .box-title {
-    width: 100%;
+    width: 300px;
+    height: 65px;
     background: #333333;
     color: white;
     font-size: 1.5em;
@@ -234,7 +235,7 @@ td > a:hover {
 }
 
 .navbar-nav>li>a {
-    font-size: 16px;
+    font-size: 12px;
 }
 
 .filter-type {
@@ -266,15 +267,15 @@ td > a:hover {
     margin-top: 15px;
 }
 
-.admin-users-wrapper table {
+.admin-users-wrapper table, .admin-ads-wrapper table {
     margin: 0 auto;
 }
 
-.admin-users-wrapper th, .admin-users-wrapper td {
+.admin-users-wrapper th, .admin-users-wrapper td, .admin-ads-wrapper th, .admin-ads-wrapper td {
     padding: 10px;
 }
 
-.admin-users-wrapper th {
+.admin-users-wrapper th, .admin-ads-wrapper th{
     font-size: 18px;
 }
 
