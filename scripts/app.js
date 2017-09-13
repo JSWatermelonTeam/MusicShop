@@ -26,6 +26,9 @@ $(() => {
         this.get("#/deleteAd/:id", advertsController.deleteAdvert);
 
         this.get("#/details/:id", advertsController.loadAdDetails);
+        this.post('#/createComment/:id', advertsController.createComment);
+        this.get('#/comments/delete/:id', advertsController.deleteComment);
+
         this.get("#/messages", messagesController.getMessagesPage);
 
         this.get("#/messages/sent", messagesController.getSentMessages);

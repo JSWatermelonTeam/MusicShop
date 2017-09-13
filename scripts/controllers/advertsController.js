@@ -321,13 +321,68 @@ let advertsController = (() => {
             ctx.username = sessionStorage.getItem("username");
             ctx.userId = sessionStorage.getItem("userId");
 
-            ctx.loadPartials({
-                header: './templates/common/header.hbs',
-                footer: './templates/common/footer.hbs'
-            }).then(function () {
-                this.partial("./templates/viewAdDetails.hbs")
-            })
+            requester.get('appdata', `comments?query={"adId":"${advertId}"}`, 'kinvey')
+                .then(function (commentsData) {
+                    commentsData.forEach(c => {
+                        c.datePosted = new Date(Number(c.datePosted)).toDateString();
+                        c.isAuthor = c._acl.creator === sessionStorage.getItem('userId');
+                    });
+                    ctx.comments = commentsData;
+                    ctx.loadPartials({
+                        header: './templates/common/header.hbs',
+                        footer: './templates/common/footer.hbs',
+                        comment: './templates/comment.hbs'
+                    }).then(function () {
+                        this.partial("./templates/viewAdDetails.hbs")
+                    })
+                }).catch(authenticator.handleError);
+
         }
+    }
+
+    function createComment(ctx) {
+        if(!authenticator.isAuth()){
+            ctx.redirect('#/login');
+
+            return;
+        }
+
+        let advertId = ctx.params.id.substring(1);
+        let content = ctx.params.newComment;
+        let author = sessionStorage.getItem('username');
+        let datePosted = Date.now();
+
+        let data = {
+            adId: advertId,
+            datePosted: datePosted,
+            content: content,
+            author: author,
+        };
+
+        requester.post('appdata', 'comments', 'kinvey', data)
+            .then(function (respondData) {
+                authenticator.showInfo('Comment successfully created!');
+                ctx.redirect('#/details/:' + advertId);
+            }).catch(authenticator.handleError);
+    }
+
+    function deleteComment(ctx) {
+        if(!authenticator.isAuth()){
+            ctx.redirect('#/login');
+
+            return;
+        }
+
+        let commentId = ctx.params.id.substring(1);
+        requester.get('appdata', 'comments/' + commentId, 'kinvey')
+            .then(function (commentData) {
+                let postId = commentData.adId;
+                requester.remove('appdata', 'comments/' + commentId, 'kinvey')
+                    .then(function (respondData) {
+                        authenticator.showInfo('Comment successfully deleted!');
+                        ctx.redirect('#/details/:' + postId);
+                    }).catch(authenticator.handleError);
+            }).catch(authenticator.handleError);
     }
 
     function toggleSearchFormDisplay(event) {
@@ -350,6 +405,8 @@ let advertsController = (() => {
         loadAdvertEditView,
         deleteAdvert,
         editAdvert,
-        loadAdDetails
+        loadAdDetails,
+        createComment,
+        deleteComment
     }
 })();

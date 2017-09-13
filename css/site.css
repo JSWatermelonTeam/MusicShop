@@ -279,10 +279,22 @@ td > a:hover {
     font-size: 18px;
 }
 
-.admin-users-wrapper thead{
+.admin-users-wrapper thead, .detailed-ad-container, .admin-ads-wrapper thead{
     border-bottom: 3px solid;
 }
 
 .give-admin {
     margin-top: 10px;
+}
+
+#newComment {
+    display: block;
+}
+
+.comment-wrapper {
+    margin: 15px 0;
+    background-color: yellow;
+    color: black;
+    border: 2px solid grey;
+    border-radius: 7px;
 }
