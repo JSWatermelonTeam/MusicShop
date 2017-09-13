@@ -321,10 +321,10 @@ let advertsController = (() => {
         let advancedSearchBtn = $(event.target);
         if (advancedSearchBtn.text().startsWith("Show")) {
             advancedSearchBtn.text("Hide Advanced Search");
-            $("#searchForm").show();
+            $("#searchForm").slideDown();
         } else {
             advancedSearchBtn.text("Show Advanced Search");
-            $("#searchForm").hide();
+            $("#searchForm").slideUp();
         }
     }
 
